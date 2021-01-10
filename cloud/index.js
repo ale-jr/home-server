@@ -9,7 +9,7 @@ const url = require("url");
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use("/google-actions", googleActionsRouter);
+app.use("/api/google-actions", googleActionsRouter);
 
 const server = http.createServer(app);
 
