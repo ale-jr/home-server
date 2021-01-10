@@ -5,6 +5,7 @@ const { handleRemoteControl } = require("../remoteControl");
 
 const initMqtt = () => {
   client.on("connect", () => {
+    console.log("MQTT client connected");
     devices.forEach(({ id }) => {
       client.subscribe(TOPICS.deviceState.replace(":device", id));
     });

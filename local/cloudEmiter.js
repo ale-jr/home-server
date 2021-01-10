@@ -46,7 +46,10 @@ const initWebsocket = () => {
       ws.terminate();
     }, 30000);
   };
-  ws.on("open", heartbit);
+  ws.on("open", () => {
+    heartbit();
+    console.log("Cloud emitter connected");
+  });
   ws.on("ping", heartbit);
   const onClose = (reason) => {
     eventListeners.forEach(({ event, listener }) => {
