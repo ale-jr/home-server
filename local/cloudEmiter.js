@@ -16,8 +16,6 @@ const initWebsocket = () => {
       const message = JSON.parse(rawMessage);
       const { event, args } = message;
       cloudEmitter.emit(event, ...args);
-
-      console.log("event", event, "args", ...args);
     } catch (e) {
       console.error(e);
     }
@@ -33,7 +31,7 @@ const initWebsocket = () => {
           })
         );
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     };
     cloudEmitter.on(event, listener);
@@ -42,11 +40,9 @@ const initWebsocket = () => {
 
   let pingTimeout;
   const heartbit = () => {
-    console.log("heartbit");
     ws.pong();
     clearTimeout(pingTimeout);
     pingTimeout = setTimeout(() => {
-      console.log("terminated");
       ws.terminate();
     }, 30000);
   };
@@ -62,8 +58,8 @@ const initWebsocket = () => {
   };
   ws.on("close", onClose);
 
-  ws.on("error", () => {
-    console.log("error");
+  ws.on("error", (e) => {
+    console.error(e);
   });
 };
 

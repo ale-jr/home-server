@@ -11,6 +11,5 @@ cloudEmitter.on(events.UPDATE_DEVICE_STATE, ({ deviceId, state }) => {
 });
 
 cloudEmitter.on(events.GET_DEVICE_STATE, (deviceId) => {
-  console.log("get device state", deviceId);
   queryDeviceState(deviceId);
 });
