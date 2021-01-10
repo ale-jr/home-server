@@ -49,7 +49,7 @@ wss.on("connection", (ws, req) => {
 
   ws.isAlive = true;
   ws.on("pong", () => {
-    ws.isAlive = false;
+    ws.isAlive = true;
   });
 });
 
