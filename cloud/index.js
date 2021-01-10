@@ -19,7 +19,7 @@ server.listen(process.env.PORT, () => {
 
 server.on("upgrade", (request, socket, head) => {
   const pathname = url.parse(request.url).pathname;
-  if (pathname === "/home") {
+  if (pathname === "/api/home") {
     homeWss.handleUpgrade(request, socket, head, (ws) => {
       homeWss.emit("connection", ws, request);
     });

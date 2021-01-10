@@ -5,6 +5,7 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
+    "dotenv": "^8.2.0",
     "mqtt": "^4.2.6",
     "ws": "^7.4.1"
   }

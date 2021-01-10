@@ -5,9 +5,9 @@ const { events, localListeners } = require("../cloudEmitter");
 const cloudEmitter = new EventEmitter();
 
 const initWebsocket = () => {
-  const ws = new Websocket("ws://localhost:5000/home", {
+  const ws = new Websocket("wss://home.alejr.dev/api/home", {
     headers: {
-      authorization: "xpto",
+      authorization: process.env.WS_API_KEY,
     },
   });
 
