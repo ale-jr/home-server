@@ -94,11 +94,9 @@ app.onQuery(async (body, headers) => {
   };
 });
 
-const agentUserId = "86913777-f538-4669-91b9-655be93e0e5d";
-
 cloudEmitter.on(events.GET_DEVICE_STATE_RESPONSE, ({ deviceId, state }) => {
   app.reportState({
-    agentUserId,
+    agentUserId: process.env.USER_ID,
     payload: {
       devices: {
         states: {
@@ -156,80 +154,3 @@ app.onExecute(async (body, header) => {
 
 exports.app = app;
 
-// const { devices, updateDeviceState } = require("../devices");
-// const smartHomeApp = smarthome({
-//   key: process.env.HOME_GRAPH_KEY,
-// });
-
-// smartHomeApp.onSync(async (body, headers) => {
-//   console.log("sync");
-
-//   const payload = {
-//     agentUserId: headers.decoded.user_id,
-//     devices: devices.map(({ id, deviceInfo, name, state, traits, type }) => ({
-//       id,
-//       traits: traits.map((trait) => `action.devices.traits.${trait}`),
-//       type: `action.devices.types.${type.toUpperCase()}`,
-//       name: {
-//         defaultNames: [deviceInfo.name],
-//         name: deviceInfo.name,
-//         nicknames: [deviceInfo.name],
-//       },
-//       willReportState: false,
-//       deviceInfo: {
-//         manufacturer: "xpto",
-//         model: deviceInfo.model,
-//         hwVersion: "0.1",
-//         swVersion: "0.1",
-//       },
-//     })),
-//   };
-//   console.log(payload, payload.traits, payload.deviceInfo, payload.name);
-//   return {
-//     requestId: body.requestId,
-//     payload,
-//   };
-// });
-// smartHomeApp.onQuery(async (body, headers) => {
-//   const devicesResponse = {};
-//   body.inputs[0].payload.devices.forEach(({ id }) => {
-//     const device = devices.find(({ id: deviceId }) => +id === deviceId);
-//     if (!device) throw new Error("device not found");
-//     devicesResponse[id] = { ...device.state, online: true };
-//   });
-
-//   return {
-//     requestId: body.requestId,
-//     payload: {
-//       devices: devicesResponse,
-//     },
-//   };
-// });
-// smartHomeApp.onExecute(async (body, headers) => {
-//   const executedCommands = [];
-//   body.inputs[0].payload.commands.map(
-//     ({ devices: devicesToBeUpdated, execution }) => {
-//       //For each device
-//       devicesToBeUpdated.forEach(({ id }) => {
-//         //For each command
-//         execution.forEach(({ command, params }) => {
-//           const trait = command.replace("action.devices.commands.", "");
-//           const deviceState = updateDeviceState(id, trait, params);
-//           executedCommands.push({
-//             ids: [id],
-//             status: "SUCCESS",
-//             states: deviceState,
-//           });
-//         });
-//       });
-//     }
-//   );
-
-//   return {
-//     requestId: body.requestId,
-//     payload: {
-//       commands: executedCommands,
-//     },
-//   };
-// });
-// smartHomeApp.onDisconnect(async (body, headers) => {});
