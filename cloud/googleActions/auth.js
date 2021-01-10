@@ -4,16 +4,16 @@ const CLIENT_ID = process.env.CLIENT_ID;
 const PROJECT_ID = process.env.PROJECT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const JWT_SECRET = process.env.JWT_SECRET;
+const USER_ID = process.env.USER_ID
 
-const generateCodeToken = (redirect_uri) => {
+const generateCodeToken = (redirect_uri) =>
   jwt.sign(
-    { client_id: CLIENT_ID, user_id: process.env.USER_ID, redirect_uri },
+    { client_id: CLIENT_ID, user_id: USER_ID, redirect_uri },
     JWT_SECRET,
     {
       expiresIn: "10m",
     }
   );
-};
 
 exports.generateCodeToken = generateCodeToken;
 
