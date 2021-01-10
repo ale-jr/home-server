@@ -1,0 +1,11 @@
+{
+  "name": "local",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "mqtt": "^4.2.6",
+    "ws": "^7.4.1"
+  }
+}
