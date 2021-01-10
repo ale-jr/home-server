@@ -58,7 +58,6 @@ exports.verifyAuthRedirect = verifyAuthRedirect;
 
 const verifyCodeToken = ({ client_id, client_secret, code, redirect_uri }) =>
   new Promise((resolve, reject) => {
-    console.log({ client_id, client_secret, code, redirect_uri });
     if (client_id !== CLIENT_ID) {
       return reject(new Error("Invalid client_id"));
     }

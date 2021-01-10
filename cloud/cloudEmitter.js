@@ -15,7 +15,6 @@ wss.on("connection", (ws, req) => {
       const message = JSON.parse(rawMessage);
       const { event, args } = message;
       cloudEmitter.emit(event, ...args);
-      console.log("event", event, "args", ...args);
     } catch (e) {
       console.error(e);
     }
@@ -31,7 +30,7 @@ wss.on("connection", (ws, req) => {
           })
         );
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     };
     cloudEmitter.on(event, listener);
@@ -39,14 +38,13 @@ wss.on("connection", (ws, req) => {
   });
 
   ws.on("close", () => {
-    console.log("close");
     eventListeners.forEach(({ event, listener }) => {
       cloudEmitter.removeListener(event, listener);
     });
   });
 
-  ws.on("error", () => {
-    console.log("error");
+  ws.on("error", (e) => {
+    console.error(e);
   });
 
   ws.isAlive = true;
@@ -58,7 +56,6 @@ wss.on("connection", (ws, req) => {
 const interval = setInterval(() => {
   wss.clients.forEach((ws) => {
     if (ws.isAlive === false) {
-      console.log("r");
       return ws.terminate();
     }
     ws.isAlive = false;

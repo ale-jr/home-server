@@ -8,7 +8,6 @@ const app = smarthome({
 app.onSync(
   (body, headers) =>
     new Promise((resolve, reject) => {
-      console.log("sync");
       let timeout;
       cloudEmitter.emit(events.GET_ALL_DEVICES);
       const onResponse = (devices) => {
@@ -33,7 +32,6 @@ app.onSync(
             },
           })),
         };
-        console.log(payload);
         resolve({
           requestId: body.requestId,
           payload,
@@ -70,16 +68,11 @@ const getDeviceState = (deviceId) =>
   });
 
 app.onQuery(async (body, headers) => {
-  console.log("onQuery", headers.decoded.user_id);
   const getDeviceStatePromises = body.inputs[0].payload.devices.map(({ id }) =>
     getDeviceState(id)
   );
 
-  console.log(getDeviceStatePromises.length);
-
   const deviceStates = await Promise.all(getDeviceStatePromises);
-
-  console.log();
 
   const devices = {};
   deviceStates.forEach(
@@ -143,7 +136,6 @@ app.onExecute(async (body, header) => {
 
   const executedCommands = await Promise.all(executeCommandsPromises);
 
-  console.log("executedCommands", executedCommands);
   return {
     requestId: body.requestId,
     payload: {
