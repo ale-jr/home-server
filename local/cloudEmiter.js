@@ -42,6 +42,7 @@ const initWebsocket = () => {
 
   let pingTimeout;
   const heartbit = () => {
+    console.log("heartbit", process.env.WS_API_KEY);
     clearTimeout(pingTimeout);
     pingTimeout = setTimeout(() => {
       ws.terminate();

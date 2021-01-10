@@ -7,7 +7,7 @@ exports.cloudEmitter = cloudEmitter;
 
 const wss = new WebSocket.Server({ noServer: true });
 wss.on("connection", (ws, req) => {
-  if (req.headers.authorization !== "xpto") {
+  if (req.headers.authorization !== process.env.WS_API_KEY) {
     ws.terminate();
   }
   ws.on("message", (rawMessage) => {
