@@ -1,5 +1,7 @@
 require("dotenv").config();
 const { initWebsocket } = require("./cloudEmiter");
-require("./googleActions")
+const { initMqtt } = require("./mqtt");
+require("./googleActions");
 
 initWebsocket();
+initMqtt();

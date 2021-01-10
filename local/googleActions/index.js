@@ -1,6 +1,6 @@
 const { cloudEmitter, events } = require("../cloudEmiter");
 const { devices } = require("../../devices.json");
-const { triggerDevice, queryDeviceState } = require("../mqtt");
+const { triggerDevice, queryDeviceState } = require("../device");
 
 cloudEmitter.on(events.GET_ALL_DEVICES, () => {
   cloudEmitter.emit(events.GET_ALL_DEVICES_RESPONSE, devices);
@@ -11,6 +11,6 @@ cloudEmitter.on(events.UPDATE_DEVICE_STATE, ({ deviceId, state }) => {
 });
 
 cloudEmitter.on(events.GET_DEVICE_STATE, (deviceId) => {
-  console.log("get device state",deviceId);
+  console.log("get device state", deviceId);
   queryDeviceState(deviceId);
 });
